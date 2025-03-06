@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./public/assets/icon.svg" />
+    <link rel="stylesheet" href="./src/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fizzi Clone</title>
+  </head>
+  <body class="overflow-x-hidden">
+    <div>
+      <!-- heroSection -->
+      <div
+        class="heroSeaction bg-[#FDE047] w-screen h-screen flex flex-col items-center justify-between"
+      >
+        <img
+          class="w-[9.5em] h-[5.5em] pt-3"
+          src="./public/assets/fizzi logo trimed.png"
+          alt=""
+        />
+        <div
+          class="text-[#F97316] text-[8.5rem] text-center gap-0 -mt-18 font-extrabold"
+        >
+          <h1 class="heading1 font-bold scale-150 tracking-wide">LIVE</h1>
+          <h1 class="heading2 font-bold scale-150 -mt-[0.3em] tracking-wide">
+            GUTSY
+          </h1>
+        </div>
+        <div class="text-center">
+          <h2
+            class="tagline1 text-[#082F49] text-5xl tracking-wide font-bold mb-5"
+          >
+            Soda Perfected
+          </h2>
+          <p class="tagline2 text-[#082F49] text-xl -mt-3 tracking-tighter">
+            3-5g sugar. 9g fiber. 5 delicious flavors.
+          </p>
+        </div>
+        <button
+          class="btn cursor-pointer border border-[#EA580C] bg-[#EA580C] text-white mb-5 px-6 py-4 text-2xl font-bold rounded-xl"
+        >
+          SHOP NOW
+        </button>
+      </div>
+      <!-- flavorSeaction -->
+      <div
+        class="flavorSeaction bg-[#D9F99D] h-screen w-screen text-[#082F49] py-10 px-30 flex flex-col gap-5 justify-center"
+      >
+        <div class="text-8xl font-extrabold scale-100 tracking-wide">
+          <h1>TRY ALL</h1>
+          <h1>FIVE</h1>
+          <h1>FLAVORS</h1>
+        </div>
+        <p class="w-[35%] tracking-wider">
+          Our soda is made with real fruit juice and a touch of cane sugar. We
+          never use artificial sweeteners or high fructose corn syrup. Try all
+          five flavors and find your favorite!
+        </p>
+      </div>
+      <canvas class="fixed top-0 left-0"></canvas>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
