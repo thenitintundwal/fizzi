@@ -129,7 +129,7 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
             duration: 10,
             yoyo: true,
             repeat: -1,
-            ease: "bounce.out",
+            ease: "bounce.inOut",
           });
         },
       });
@@ -163,6 +163,16 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
         z: 1,
         duration: 5,
       });
+      tl.to(model.position, {
+        x: -0.5,
+        z: -3,
+        duration: 5,
+      });
+      tl.to(model.position, {
+        x: 1.5,
+        y: -0.5,
+        duration: 4,
+      });
     } else if (finalTexture === flavorTextures.lemonLime) {
       gsap.from(model.position, {
         y: 5,
@@ -194,6 +204,16 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
         z: -1,
         duration: 5,
       });
+      tl.to(model.position, {
+        x: 2.7,
+        z: -3,
+        duration: 5,
+      });
+      tl.to(model.position, {
+        x: 5,
+        y: -0.5,
+        duration: 4,
+      });
     }
 
     if (finalTexture === flavorTextures.grape) {
@@ -208,8 +228,60 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
         },
       });
       tl.from(model.position, {
-        y: 5,
+        y: 7,
+        x: -1,
+        z: -2,
+        duration: 4,
+      });
+      tl.to(model.position, {
+        y: 1,
         x: 2,
+        duration: 4,
+      });
+      tl.to(model.position, {
+        y: 1.5,
+        x: -0.1,
+        z: -2,
+      });
+      tl.to(model.position, {
+        x: 2,
+        y: 1.3,
+        duration: 4,
+      });
+    }
+
+    if (finalTexture === flavorTextures.watermelon) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".flavorSeaction",
+          scroll: "body",
+          start: "top 90%",
+          end: "top 20%",
+          scrub: 2,
+          markers: true,
+        },
+      });
+      tl.from(model.position, {
+        y: -7,
+        x: 0.2,
+        z: -2,
+        duration: 4,
+      });
+      tl.to(model.position, {
+        y: -1,
+        x: -2,
+        duration: 4,
+      });
+
+      tl.to(model.position, {
+        y: 1.5,
+        x: 1.7,
+        z: -2,
+        duration: 4,
+      });
+      tl.to(model.position, {
+        x: 3.7,
+        y: 1.3,
         duration: 4,
       });
     }
@@ -227,22 +299,18 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
       tl.from(model.position, {
         y: 5,
         x: -3,
+        z: 2,
         duration: 4,
       });
-    }
-    if (finalTexture === flavorTextures.watermelon) {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".flavorSeaction",
-          scroll: "body",
-          start: "top 90%",
-          end: "top 20%",
-          scrub: 2,
-          markers: true,
-        },
+      tl.to(model.position, {
+        y: 0.1,
+        x: 0.7,
+        z: 2,
+        duration: 4,
       });
-      tl.from(model.position, {
-        y: -5,
+      tl.to(model.position, {
+        x: 2.2,
+        y: -0.5,
         duration: 4,
       });
     }
@@ -252,10 +320,10 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
 };
 
 //call cans
-loadCan(-3, 0.2, 0.5, flavorTextures.blackCherry);
-loadCan(3, 0.2, -0.5, flavorTextures.lemonLime);
-loadCan(0.2, 0.2, 0, flavorTextures.grape);
-loadCan(0.2, -0.1, 0, flavorTextures.watermelon);
+loadCan(-2.5, 0.2, 0.5, flavorTextures.blackCherry);
+loadCan(2.5, 0.2, -0.5, flavorTextures.lemonLime);
+loadCan(0.2, 1, 0, flavorTextures.grape);
+loadCan(0.1, -0.1, 0, flavorTextures.watermelon);
 loadCan(0.2, -0.1, 0, flavorTextures.strawberryLemonade);
 //call another can in scroll
 
@@ -276,7 +344,7 @@ function createBubble() {
   bubble.position.set(
     ((Math.random() - 0.5) * window.innerWidth) / 50,
     -4,
-    Math.random() - 1 * 0.1
+    Math.random() * 2 - 1
   );
 
   bubbleGroup.add(bubble);
@@ -284,7 +352,7 @@ function createBubble() {
 
   gsap.to(bubble.position, {
     y: 4,
-    duration: Math.random() * 20 + 2,
+    duration: Math.random() * 10 + 2,
     repeat: -1,
     ease: "power2.inOut",
     onComplete: () => {
@@ -293,11 +361,19 @@ function createBubble() {
   });
 }
 
+// Create multiple bubbles on first load
+function generateInitialBubbles(count) {
+  for (let i = 0; i < count; i++) {
+    createBubble();
+  }
+}
+
 function continous() {
   setInterval(() => {
     createBubble();
-  }, 1000);
+  }, 2000);
 }
+generateInitialBubbles(100);
 continous();
 
 // Handle window resize
