@@ -371,9 +371,9 @@ function generateInitialBubbles(count) {
 function continous() {
   setInterval(() => {
     createBubble();
-  }, 2000);
+  }, 3000);
 }
-generateInitialBubbles(100);
+generateInitialBubbles(150);
 continous();
 
 // Handle window resize
