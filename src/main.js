@@ -7,7 +7,6 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import CustomShaderMaterial from "three-custom-shader-material/vanilla";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { remove } from "three/examples/jsm/libs/tween.module.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -156,6 +155,12 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
           end: "top 20%",
           scrub: 2,
           markers: true,
+          onLeave: () => {
+            gsap.set(model.position, { x: 1.5, y: -0.5 }); // Fix position when leaving flavor section
+          },
+          onEnterBack: () => {
+            gsap.set(model.position, { x: -2.5, y: 0.2 }); // Reset to initial position
+          },
         },
       });
       tl.to(model.position, {
@@ -182,7 +187,7 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
         ease: "power2.inOut",
         onComplete: () => {
           gsap.to(model.position, {
-            y: 0.8,
+            y: 0.6,
             duration: 8,
             repeat: -1,
             yoyo: true,
@@ -197,6 +202,12 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
           end: "top 20%",
           scrub: 2,
           markers: true,
+          onLeave: () => {
+            gsap.set(model.position, { x: 5, y: -0.5 }); // Fix position when leaving flavor section
+          },
+          onEnterBack: () => {
+            gsap.set(model.position, { x: 2.5, y: 0.2 }); // Reset to initial position
+          },
         },
       });
       tl.to(model.position, {
@@ -225,6 +236,12 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
           end: "top 20%",
           scrub: 2,
           markers: true,
+          onLeave: () => {
+            gsap.set(model.position, { x: 2, y: 1.3 }); // Fix position when leaving flavor section
+          },
+          onEnterBack: () => {
+            gsap.set(model.position, { x: 0.2, y: 1 }); // Reset to initial position
+          },
         },
       });
       tl.from(model.position, {
@@ -259,6 +276,12 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
           end: "top 20%",
           scrub: 2,
           markers: true,
+          onLeave: () => {
+            gsap.set(model.position, { x: 3.7, y: 1.3 }); // Fix position when leaving flavor section
+          },
+          onEnterBack: () => {
+            gsap.set(model.position, { x: 0.1, y: -0.1 }); // Reset to initial position
+          },
         },
       });
       tl.from(model.position, {
@@ -294,6 +317,20 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
           end: "top 20%",
           scrub: 2,
           markers: true,
+          onLeave: () => {
+            gsap.set(model.position, { x: 2.2, y: -0.2 }); // Fix position when leaving flavor section
+            gsap.set(".heroSeactionCanvas", {
+              position: "absolute",
+              top: window.innerHeight + "px",
+            });
+          },
+          onEnterBack: () => {
+            gsap.set(model.position, { x: 0.2, y: -0.1 }); // Reset to initial position
+            gsap.set(".heroSeactionCanvas", {
+              position: "fixed",
+              top: "0px",
+            });
+          },
         },
       });
       tl.from(model.position, {
@@ -310,7 +347,7 @@ const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
       });
       tl.to(model.position, {
         x: 2.2,
-        y: -0.5,
+        y: -0.2,
         duration: 4,
       });
     }
