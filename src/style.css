@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+canvas {
+  display: block;
+}

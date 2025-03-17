@@ -5,7 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="./public/assets/icon.svg" />
     <link rel="stylesheet" href="./src/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fizzi Clone</title>
+    <title>Fizzi</title>
   </head>
   <body class="overflow-x-hidden">
     <div>
@@ -16,7 +16,7 @@
         >
           <img
             class="w-[9.5em] h-[5.5em] pt-3"
-            src="./public/assets/fizzi logo trimed.png"
+            src="./public/assets/fizzi logo.png"
             alt=""
           />
           <div
@@ -58,11 +58,36 @@
             five flavors and find your favorite!
           </p>
         </div>
-        <canvas class="heroSeactionCanvas fixed top-0 left-0"></canvas>
+        <canvas
+          id="canvas1"
+          class="heroSeactionCanvas fixed top-0 left-0"
+        ></canvas>
       </div>
-      <!-- divingCan -->
-      <div class="bg-[#C0F0F5] w-screen h-screen"></div>
-      <!-- <canvas class="divingCanCanvas"></canvas> -->
+      <div class="relative">
+        <!-- divingCan -->
+        <div
+          class="divingCan bg-[#C0F0F5] w-screen flex items-center flex-col justify-center py-[45em] gap-[16em] pl-[22em]"
+        >
+          <h1 id="dive" class="word dive text-[13em] font-bold text-[#F97316]">
+            DIVE
+          </h1>
+          <h1 id="into" class="word text-[13em] font-bold text-[#F97316]">
+            INTO
+          </h1>
+          <h1 id="better" class="word text-[13em] font-bold text-[#F97316]">
+            BETTER
+          </h1>
+          <h1 id="health" class="word text-[13em] font-bold text-[#F97316]">
+            HEALTH
+          </h1>
+        </div>
+        <canvas
+          id="canvas2"
+          height="100%"
+          width="100%"
+          class="divingCanCanvas fixed top-0 left-0"
+        ></canvas>
+      </div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
