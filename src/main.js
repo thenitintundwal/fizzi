@@ -443,7 +443,7 @@ camera2.position.z = cameraPosition;
 const renderer2 = new THREE.WebGLRenderer({
   canvas: document.getElementById("canvas2"),
   alpha: true,
-  // antialias: true,
+  antialias: true,
   // preserveDrawingBuffer: true,
 });
 renderer2.setSize(window.innerWidth, window.innerHeight);
@@ -532,10 +532,11 @@ function cloudInterval() {
 
 divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
   const divingCan = gltf.scene;
-  divingCan.position.set(0, 0, 1);
-  divingCan.scale.set(4, 4, 4);
+  divingCan.position.set(-3, 4, 1); // Start off-screen
+  divingCan.scale.set(3.5, 3.5, 3.5);
   divingCan.rotation.y = Math.PI;
-  divingCan.rotation.z = -0.5; // Removed z-axis rotation
+  // divingCan.rotation.z = -0.5;
+  divingCan.visible = false; // Initially hidden
 
   // Apply materials to the can
   divingCan.traverse((child) => {
@@ -553,32 +554,69 @@ divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
     }
   });
 
-  // Small floating animation that keeps the can within the div
-  // gsap.to(divingCan.position, {
-  //   y: 0.3,
-  //   yoyo: true,
-  //   repeat: -1,
-  //   duration: 1,
-  //   ease: "none",
-  // });
+  gsap.to(divingCan.rotation, {
+    y: Math.PI * 3,
+    repeat: -1,
+    duration: 2,
+    ease: "none",
+  });
 
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: ".divingCan",
       start: "top top",
-      end: "bottom bottom",
-      scrub: 2,
+      end: "bottom top",
       markers: true,
+      onEnter: () => {
+        divingCan.visible = true;
+        tl.to(divingCan.position, {
+          y: 0,
+          x: 0,
+          yoyo: true,
+          duration: 1,
+          ease: "power2.inOut",
+        });
+      },
+      onLeave: () => {
+        tl.to(divingCan.position, {
+          y: 4,
+          x: -3,
+          yoyo: true,
+          duration: 1,
+          ease: "power2.inOut",
+        });
+        // divingCan.visible = false;
+      },
+      onEnterBack: () => {
+        divingCan.visible = true;
+        tl.to(divingCan.position, {
+          y: 0,
+          x: 0,
+          yoyo: true,
+          opacity: 1,
+          ease: "power2.inOut",
+        });
+      },
+      onLeaveBack: () => {
+        tl.to(divingCan.position, {
+          y: 4,
+          x: -3,
+          yoyo: true,
+          duration: 1,
+          ease: "power2.inOut",
+        });
+        // divingCan.visible = false;
+      },
     },
   });
 
-  tl.from(divingCan.position, {
-    y: 2,
-    x: -3,
-    opacity: 0,
-    duration: 3,
-    ease: "power2.inOut",
-  });
+  // Animation that keeps the can within the divingCan div
+  // tl.from(divingCan.position, {
+  //   y: 4, // Start from below
+  //   x: -3,
+  //   duration: 0.1,
+  //   ease: "power2.inOut",
+  // });
 
   scene2.add(divingCan);
 });
