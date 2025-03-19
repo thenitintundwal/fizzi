@@ -8,7 +8,7 @@
     <title>Fizzi</title>
   </head>
   <body class="overflow-x-hidden">
-    <div>
+    <div class="flex flex-col mainDiv">
       <div>
         <!-- heroSection -->
         <div
@@ -58,12 +58,14 @@
             five flavors and find your favorite!
           </p>
         </div>
-        <canvas
-          id="canvas1"
-          class="heroSeactionCanvas fixed top-0 left-0"
-        ></canvas>
+        <div>
+          <canvas
+            id="canvas1"
+            class="heroSeactionCanvas fixed top-0 left-0"
+          ></canvas>
+        </div>
       </div>
-      <div class="relative">
+      <div class="relative scene2">
         <!-- divingCan -->
         <div
           class="divingCan bg-[#C0F0F5] w-screen flex items-center flex-col justify-center py-[45em] gap-[16em] pl-[22em]"
@@ -81,13 +83,14 @@
             HEALTH
           </h1>
         </div>
-        <canvas
-          id="canvas2"
-          class="divingCanCanvas fixed top-0 left-0"
-        ></canvas>
+        <div>
+          <canvas
+            id="canvas2"
+            class="divingCanCanvas fixed top-0 left-0"
+          ></canvas>
+        </div>
       </div>
-      <!-- <div class="h-screen w-full bg-amber-700"> -->
-      <!-- </div> -->
+      <div class="h-screen w-full bg-amber-700"></div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>

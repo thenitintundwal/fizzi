@@ -565,7 +565,7 @@ divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
     scrollTrigger: {
       trigger: ".divingCan",
       start: "top top",
-      end: "bottom top",
+      end: "70%",
       markers: true,
       onEnter: () => {
         divingCan.visible = true;
@@ -579,8 +579,8 @@ divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
       },
       onLeave: () => {
         tl.to(divingCan.position, {
-          y: 4,
-          x: -3,
+          y: -4,
+          x: 3,
           yoyo: true,
           duration: 1,
           ease: "power2.inOut",
