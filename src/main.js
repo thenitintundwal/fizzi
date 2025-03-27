@@ -474,7 +474,6 @@ divingCanDracoLoader.setDecoderPath(
 );
 divingCanLoader.setDRACOLoader(divingCanDracoLoader);
 
-// Load the diving can model
 function loadCloudModel() {
   divingCanLoader.load("../public/assets/cloud_test/scene.gltf", (gltf) => {
     const cloud = gltf.scene;
@@ -530,6 +529,7 @@ function cloudInterval() {
 // generateInitialClouds(12);
 // cloudInterval();
 
+//load can on scene2
 divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
   const divingCan = gltf.scene;
   divingCan.position.set(-3, 4, 1); // Start off-screen
@@ -748,3 +748,166 @@ tl4
     },
     0.75
   );
+
+//creating third scene
+const scene3 = new THREE.Scene();
+const camera3 = new THREE.PerspectiveCamera(
+  25,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+
+camera3.position.z = 12;
+
+const canvas3 = document.getElementById("scene3");
+const renderer3 = new THREE.WebGLRenderer({
+  canvas: canvas3,
+  alpha: true,
+  antialias: true,
+});
+renderer3.setSize(window.innerWidth, window.innerHeight);
+renderer3.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer3.toneMapping = THREE.ACESFilmicToneMapping;
+renderer3.toneMappingExposure = 1;
+
+//load HDRI Environment Map
+new RGBELoader().load("../public/assets/hdrs/field.hdr", function (texture) {
+  texture.mapping = THREE.EquirectangularReflectionMapping;
+  scene3.environment = texture;
+});
+
+const differentCansTexture = [
+  flavorTextures.blackCherry,
+  flavorTextures.watermelon,
+  flavorTextures.strawberryLemonade,
+  flavorTextures.lemonLime,
+  flavorTextures.grape,
+];
+// console.log(differentCansTexture);
+let currentTextureIndex = 0;
+// console.log(differentCansTexture[currentTextureIndex]);
+let cansPrice;
+
+function applyTexture() {
+  if (!cansPrice) return;
+  cansPrice.traverse((child) => {
+    if (child.isMesh) {
+      if (child.name === "cylinder_1") {
+        child.material = new THREE.MeshPhysicalMaterial({
+          roughness: 0.1,
+          metalness: 0.75,
+          reflectivity: 1,
+          map: differentCansTexture[currentTextureIndex],
+        });
+      } else {
+        child.material = metalMaterial;
+      }
+    }
+  });
+}
+function differentCans() {
+  divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
+    cansPrice = gltf.scene;
+    cansPrice.position.set(0, 0, 0);
+    cansPrice.scale.set(4, 4, 4);
+    cansPrice.rotation.y = Math.PI;
+
+    //appling material to can
+    applyTexture();
+    scene3.add(cansPrice);
+
+    const tl5 = gsap.timeline();
+    tl5.to(cansPrice.rotation, {
+      y: Math.PI / 2 + 2,
+      x: 0.2,
+      z: -0.2,
+      duration: 5,
+      ease: "power2.inOut",
+      repeat: -1,
+      yoyo: true,
+    });
+    tl5.to(cansPrice.rotation, {
+      y: 2,
+      z: 0.1,
+      x: 0.2,
+      duration: 5,
+      ease: "power2.inOut",
+      repeat: -1,
+      yoyo: true,
+    });
+  });
+}
+
+differentCans();
+
+const cansName = [
+  "Black Cherry",
+  "Watermelon Crush",
+  "Strawberry Lemonade",
+  "Lemon Lime",
+  "Grape Goodness",
+];
+const rightBtn = document.querySelector(".rightButton");
+const leftBtn = document.querySelector(".leftButton");
+const getcanName = document.querySelector(".canName");
+const outerCircle = document.querySelector(".outerCircle"); // Select the outer circle
+const innerCircle = document.querySelector(".innerCircle"); // Select the inner circle
+const outerFillColor = window.getComputedStyle(outerCircle).fill;
+const innerFillColor = window.getComputedStyle(innerCircle).fill;
+
+console.log("Outer Circle Fill Color:", outerFillColor);
+console.log("Inner Circle Fill Color:", innerFillColor);
+
+getcanName.textContent = cansName[currentTextureIndex];
+
+rightBtn.onclick = function () {
+  if (currentTextureIndex <= 3) {
+    currentTextureIndex += 1;
+    applyTexture();
+    getcanName.textContent = cansName[currentTextureIndex];
+  } else {
+    currentTextureIndex = 0;
+    applyTexture();
+    getcanName.textContent = cansName[currentTextureIndex];
+  }
+  console.log(currentTextureIndex);
+};
+leftBtn.onclick = function () {
+  if (currentTextureIndex >= 1) {
+    currentTextureIndex -= 1;
+    applyTexture();
+    getcanName.textContent = cansName[currentTextureIndex];
+  } else {
+    currentTextureIndex = 4;
+    applyTexture();
+    getcanName.textContent = cansName[currentTextureIndex];
+  }
+  console.log(currentTextureIndex);
+};
+window.addEventListener("resize", () => {
+  camera3.aspect = window.innerWidth / window.innerHeight;
+  camera3.updateProjectionMatrix();
+  renderer3.setSize(window.innerWidth, window.innerHeight);
+});
+
+//animation loop
+function animate3() {
+  requestAnimationFrame(animate3);
+  renderer3.render(scene3, camera3);
+}
+animate3();
+
+gsap.to(".outerCircle", {
+  rotation: -360,
+  duration: 20,
+  repeat: -1,
+  ease: "none",
+});
+
+gsap.to(".innerCircle", {
+  rotation: 360,
+  duration: 20,
+  repeat: -1,
+  ease: "none",
+});
