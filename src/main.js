@@ -566,7 +566,7 @@ divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
       trigger: ".divingCan",
       start: "top top",
       end: "70%",
-      markers: true,
+      // markers: true,
       onEnter: () => {
         divingCan.visible = true;
         tl.to(divingCan.position, {
@@ -853,19 +853,23 @@ const leftBtn = document.querySelector(".leftButton");
 const getcanName = document.querySelector(".canName");
 const outerCircle = document.querySelector(".outerCircle"); // Select the outer circle
 const innerCircle = document.querySelector(".innerCircle"); // Select the inner circle
-const outerFillColor = window.getComputedStyle(outerCircle).fill;
-const innerFillColor = window.getComputedStyle(innerCircle).fill;
+let outerFillColor = window.getComputedStyle(outerCircle).fill;
+let innerFillColor = window.getComputedStyle(innerCircle).fill;
 
-console.log("Outer Circle Fill Color:", outerFillColor);
-console.log("Inner Circle Fill Color:", innerFillColor);
+console.log(outerFillColor);
+console.log(innerFillColor);
 
 getcanName.textContent = cansName[currentTextureIndex];
+console.log(getcanName.textContent);
 
 rightBtn.onclick = function () {
   if (currentTextureIndex <= 3) {
     currentTextureIndex += 1;
     applyTexture();
     getcanName.textContent = cansName[currentTextureIndex];
+    console.log(getcanName.textContent);
+    outerFillColor = "rgb(120, 147, 65)";
+    console.log(outerFillColor);
   } else {
     currentTextureIndex = 0;
     applyTexture();
@@ -908,6 +912,13 @@ gsap.to(".outerCircle", {
 gsap.to(".innerCircle", {
   rotation: 360,
   duration: 20,
+  repeat: -1,
+  ease: "none",
+});
+
+gsap.to(".circle-text", {
+  rotation: 360,
+  duration: 10,
   repeat: -1,
   ease: "none",
 });
