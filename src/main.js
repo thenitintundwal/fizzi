@@ -922,3 +922,166 @@ gsap.to(".circle-text", {
   repeat: -1,
   ease: "none",
 });
+
+// forth scene
+const scene4 = new THREE.Scene();
+const camera4 = new THREE.PerspectiveCamera(
+  25,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+
+camera4.position.z = 35;
+
+const parent = document.querySelector(".parent");
+console.log(parent);
+const canvas4 = document.querySelector(".canvas4");
+const renderer4 = new THREE.WebGLRenderer({
+  canvas: canvas4,
+  alpha: true,
+  antialias: true,
+});
+
+if (parent) {
+  renderer4.setSize(parent.clientWidth, parent.clientHeight);
+  camera4.aspect = parent.clientWidth / parent.clientHeight;
+  camera4.updateProjectionMatrix();
+} else {
+  renderer4.setSize(window.innerWidth, window.innerHeight);
+}
+
+renderer4.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer4.toneMapping = THREE.ACESFilmicToneMapping;
+renderer4.toneMappingExposure = 1;
+
+//load HDRI Environment Map
+new RGBELoader().load("../public/assets/hdrs/field.hdr", function (texture) {
+  texture.mapping = THREE.EquirectangularReflectionMapping;
+  scene4.environment = texture;
+});
+
+function resizeCanvasToDisplay() {
+  if (!parent) return false;
+
+  const width = parent.clientWidth;
+  const height = parent.clientHeight;
+
+  const needResize = canvas4.width !== width || canvas4.height !== height;
+
+  if (needResize) {
+    renderer4.setSize(width, height, false);
+
+    canvas4.style.width = "100%";
+    canvas4.style.height = "100%";
+
+    camera4.aspect = width / height;
+    camera4.updateProjectionMatrix();
+  }
+
+  return needResize;
+}
+
+window.addEventListener("resize", () => {
+  resizeCanvasToDisplay();
+});
+
+divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
+  const aboutCan = gltf.scene;
+  aboutCan.position.set(2.5, 5, 0);
+  aboutCan.scale.set(4, 4, 4);
+  aboutCan.rotation.y = Math.PI;
+
+  //appling material to can
+  aboutCan.traverse((child) => {
+    if (child.isMesh) {
+      if (child.name === "cylinder_1") {
+        child.material = new THREE.MeshPhysicalMaterial({
+          roughness: 0.1,
+          metalness: 0.75,
+          reflectivity: 1,
+          map: flavorTextures.lemonLime,
+        });
+      } else {
+        child.material = metalMaterial;
+      }
+    }
+  });
+  scene4.add(aboutCan);
+
+  const tl6 = gsap.timeline();
+  tl6.to(aboutCan.rotation, {
+    y: Math.PI / 2 + 2,
+    x: 0.2,
+    z: -0.2,
+    duration: 5,
+    ease: "power2.inOut",
+    repeat: -1,
+    yoyo: true,
+  });
+  tl6.to(aboutCan.rotation, {
+    y: 2,
+    z: 0.1,
+    x: 0.2,
+    duration: 5,
+    ease: "power2.inOut",
+    repeat: -1,
+    yoyo: true,
+  });
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".about2",
+        start: "top 99%",
+        end: "top 20%",
+        scrub: 5,
+        // markers: true,
+      },
+    })
+    .to(".about", {
+      backgroundColor: "#E9CFF6",
+      duration: 3,
+      ease: "none",
+    })
+    .to(
+      aboutCan.position,
+      {
+        x: -3,
+        y: -0.3,
+        duration: 5,
+        ease: "power2.inOut",
+      },
+      "<"
+    );
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".about3",
+        start: "top 99%",
+        end: "top 20%",
+        scrub: 5,
+        markers: true,
+      },
+    })
+    .to(".about2", {
+      backgroundColor: "#CBEF9A",
+      ease: "none",
+      duration: 2,
+    })
+    .to(aboutCan.position, {
+      x: 3,
+      y: -5,
+      duration: 5,
+      ease: "power2.inOut",
+    });
+});
+
+//animation loop
+function animate4() {
+  resizeCanvasToDisplay();
+  requestAnimationFrame(animate4);
+  renderer4.render(scene4, camera4);
+}
+animate4();
