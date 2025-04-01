@@ -1304,7 +1304,7 @@ divingCanLoader.load("../assets/models/Soda-can.gltf", (gltf) => {
         start: "top 80%",
         end: "top 40%",
         scrub: 5,
-        markers: true,
+        // markers: true,
       },
     })
     .to(".about2", {
