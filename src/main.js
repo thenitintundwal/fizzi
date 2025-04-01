@@ -8,6 +8,9 @@ import CustomShaderMaterial from "three-custom-shader-material/vanilla";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,6 +34,9 @@ const renderer = new THREE.WebGLRenderer({
   alpha: true,
   antialias: true,
 });
+if (!renderer.capabilities.isWebGL2) {
+  console.log("WebGL not supported!");
+}
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -421,10 +427,15 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+// Post-processing Setup
+const composer = new EffectComposer(renderer);
+const renderPass = new RenderPass(scene, camera1);
+composer.addPass(renderPass);
+
 // Animation loop
 function animate() {
   requestAnimationFrame(animate);
-  // controls.update();
+  composer.render();
   renderer.render(scene, camera1);
 }
 
@@ -444,7 +455,7 @@ const renderer2 = new THREE.WebGLRenderer({
   canvas: document.getElementById("canvas2"),
   alpha: true,
   antialias: true,
-  // preserveDrawingBuffer: true,
+  preserveDrawingBuffer: true,
 });
 renderer2.setSize(window.innerWidth, window.innerHeight);
 renderer2.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -536,7 +547,6 @@ divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
   divingCan.scale.set(3.5, 3.5, 3.5);
   divingCan.rotation.y = Math.PI;
   // divingCan.rotation.z = -0.5;
-  divingCan.visible = false; // Initially hidden
 
   // Apply materials to the can
   divingCan.traverse((child) => {
@@ -610,14 +620,6 @@ divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
     },
   });
 
-  // Animation that keeps the can within the divingCan div
-  // tl.from(divingCan.position, {
-  //   y: 4, // Start from below
-  //   x: -3,
-  //   duration: 0.1,
-  //   ease: "power2.inOut",
-  // });
-
   scene2.add(divingCan);
 });
 
@@ -628,8 +630,14 @@ window.addEventListener("resize", () => {
   renderer2.setSize(window.innerWidth, window.innerHeight);
 });
 
+// Post-processing Setup
+const composer2 = new EffectComposer(renderer2);
+const renderPass2 = new RenderPass(scene2, camera2);
+composer2.addPass(renderPass2);
+
 function animate2() {
   requestAnimationFrame(animate2);
+  composer2.render();
   renderer2.render(scene2, camera2);
 }
 animate2();
@@ -1138,9 +1146,15 @@ window.addEventListener("resize", () => {
   renderer3.setSize(window.innerWidth, window.innerHeight);
 });
 
+// Post-processing Setup
+const composer3 = new EffectComposer(renderer);
+const renderPass3 = new RenderPass(scene3, camera3);
+composer3.addPass(renderPass3);
+
 //animation loop
 function animate3() {
   requestAnimationFrame(animate3);
+  composer3.render();
   renderer3.render(scene3, camera3);
 }
 animate3();
@@ -1275,8 +1289,8 @@ divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
     .timeline({
       scrollTrigger: {
         trigger: ".about2",
-        start: "top 100%",
-        end: "top 0%",
+        start: "top 80%",
+        end: "top 50%",
         scrub: 5,
         // markers: true,
       },
@@ -1301,8 +1315,8 @@ divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
     .timeline({
       scrollTrigger: {
         trigger: ".about3",
-        start: "top 100%",
-        end: "top 0%",
+        start: "top 80%",
+        end: "top 40%",
         scrub: 5,
         markers: true,
       },
@@ -1320,10 +1334,16 @@ divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
     });
 });
 
+// Post-processing Setup
+const composer4 = new EffectComposer(renderer);
+const renderPass4 = new RenderPass(scene4, camera4);
+composer4.addPass(renderPass4);
+
 //animation loop
 function animate4() {
   resizeCanvasToDisplay();
   requestAnimationFrame(animate4);
+  composer4.render();
   renderer4.render(scene4, camera4);
 }
 animate4();
