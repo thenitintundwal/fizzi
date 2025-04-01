@@ -848,46 +848,289 @@ const cansName = [
   "Lemon Lime",
   "Grape Goodness",
 ];
+
+const backgroundColor = ["#B88291", "#A5B780", "#B4859E", "#8AA182", "#AB94C0"];
+const outerCircleColor = [
+  "#710523",
+  "#789341",
+  "#8E486D",
+  "#507243",
+  "#815EA0",
+];
+const innerCircleColor = [
+  "#710523",
+  "#628121",
+  "#7C2A56",
+  "#335B24",
+  "#6C4490",
+];
 const rightBtn = document.querySelector(".rightButton");
 const leftBtn = document.querySelector(".leftButton");
 const getcanName = document.querySelector(".canName");
-const outerCircle = document.querySelector(".outerCircle"); // Select the outer circle
-const innerCircle = document.querySelector(".innerCircle"); // Select the inner circle
-let outerFillColor = window.getComputedStyle(outerCircle).fill;
-let innerFillColor = window.getComputedStyle(innerCircle).fill;
-
-console.log(outerFillColor);
-console.log(innerFillColor);
-
-getcanName.textContent = cansName[currentTextureIndex];
-console.log(getcanName.textContent);
+const differentCanParent = document.querySelector(".differentCanParent");
+const outerCircle = document.querySelector(".outerCircle");
+const innerCircle = document.querySelector(".innerCircle");
 
 rightBtn.onclick = function () {
+  // Create simultaneous shake + 360 rotation animation for the can
+  if (cansPrice) {
+    // Store original position and rotation
+    const originalPosition = {
+      x: cansPrice.position.x,
+      y: cansPrice.position.y,
+    };
+    const originalRotation = { y: cansPrice.rotation.y };
+
+    // Create a master timeline to coordinate all animations
+    const canAnimations = gsap.timeline();
+
+    // Add the 360 rotation to the timeline
+    canAnimations.to(
+      cansPrice.rotation,
+      {
+        y: originalRotation.y + Math.PI * 2 + 20, // Add 360 degrees (2π radians)
+        duration: 0.8,
+        ease: "power2.inOut",
+        onComplete: function () {
+          // Reset rotation to avoid accumulating rotations
+          cansPrice.rotation.y = originalRotation.y;
+        },
+      },
+      0
+    ); // Start at position 0 in the timeline
+
+    // Add shake animations to run concurrently
+    canAnimations.to(
+      cansPrice.position,
+      {
+        x: originalPosition.x + 0.1,
+        y: originalPosition.y + 0.1,
+        duration: 0.1,
+        ease: "power1.inOut",
+      },
+      0
+    ); // Start at position 0
+
+    canAnimations.to(
+      cansPrice.position,
+      {
+        x: originalPosition.x - 0.1,
+        y: originalPosition.y - 0.05,
+        duration: 0.1,
+        ease: "power1.inOut",
+      },
+      0.1
+    ); // Start at 0.1 seconds
+
+    canAnimations.to(
+      cansPrice.position,
+      {
+        x: originalPosition.x + 0.08,
+        y: originalPosition.y + 0.07,
+        duration: 0.1,
+        ease: "power1.inOut",
+      },
+      0.2
+    ); // Start at 0.2 seconds
+
+    canAnimations.to(
+      cansPrice.position,
+      {
+        x: originalPosition.x - 0.05,
+        y: originalPosition.y - 0.06,
+        duration: 0.1,
+        ease: "power1.inOut",
+      },
+      0.3
+    ); // Start at 0.3 seconds
+
+    canAnimations.to(
+      cansPrice.position,
+      {
+        x: originalPosition.x,
+        y: originalPosition.y,
+        duration: 0.1,
+        ease: "power1.inOut",
+      },
+      0.4
+    ); // Start at 0.4 seconds
+
+    // Add the scale/pop effect to run concurrently
+    canAnimations.to(
+      cansPrice.scale,
+      {
+        x: 4.2,
+        y: 4.2,
+        z: 4.2,
+        duration: 0.2,
+        ease: "power1.out",
+      },
+      0
+    ); // Start at position 0
+
+    canAnimations.to(
+      cansPrice.scale,
+      {
+        x: 4,
+        y: 4,
+        z: 4,
+        duration: 0.3,
+        ease: "elastic.out(1, 0.5)",
+      },
+      0.2
+    ); // Start at 0.2 seconds
+  }
   if (currentTextureIndex <= 3) {
     currentTextureIndex += 1;
     applyTexture();
-    getcanName.textContent = cansName[currentTextureIndex];
-    console.log(getcanName.textContent);
-    outerFillColor = "rgb(120, 147, 65)";
-    console.log(outerFillColor);
+    gsap.to(getcanName, {
+      opacity: 0,
+      y: 1,
+      duration: 0.3,
+      onComplete: function () {
+        getcanName.textContent = cansName[currentTextureIndex];
+        gsap.to(getcanName, { opacity: 1, y: 1, duration: 0.3 });
+      },
+    });
+
+    outerCircle.style.fill = outerCircleColor[currentTextureIndex];
+    innerCircle.style.fill = innerCircleColor[currentTextureIndex];
+    differentCanParent.style.backgroundColor =
+      backgroundColor[currentTextureIndex];
   } else {
     currentTextureIndex = 0;
     applyTexture();
     getcanName.textContent = cansName[currentTextureIndex];
   }
-  console.log(currentTextureIndex);
 };
 leftBtn.onclick = function () {
+  if (cansPrice) {
+    // Store original position and rotation
+    const originalPosition = {
+      x: cansPrice.position.x,
+      y: cansPrice.position.y,
+    };
+    const originalRotation = { y: cansPrice.rotation.y };
+
+    // Create a master timeline to coordinate all animations
+    const canAnimations = gsap.timeline();
+
+    // Add the rotation to the timeline (negative value for left-side rotation)
+    canAnimations.to(
+      cansPrice.rotation,
+      {
+        y: originalRotation.y - Math.PI * 2 - 20, // Negative value for left rotation
+        duration: 0.8,
+        ease: "power2.inOut",
+        onComplete: function () {
+          // Reset rotation to avoid accumulating rotations
+          cansPrice.rotation.y = originalRotation.y;
+        },
+      },
+      0
+    ); // Start at position 0 in the timeline
+
+    // Add shake animations to run concurrently
+    canAnimations.to(
+      cansPrice.position,
+      {
+        x: originalPosition.x + 0.1,
+        y: originalPosition.y + 0.1,
+        duration: 0.1,
+        ease: "power1.inOut",
+      },
+      0
+    ); // Start at position 0
+
+    canAnimations.to(
+      cansPrice.position,
+      {
+        x: originalPosition.x - 0.1,
+        y: originalPosition.y - 0.05,
+        duration: 0.1,
+        ease: "power1.inOut",
+      },
+      0.1
+    ); // Start at 0.1 seconds
+
+    canAnimations.to(
+      cansPrice.position,
+      {
+        x: originalPosition.x + 0.08,
+        y: originalPosition.y + 0.07,
+        duration: 0.1,
+        ease: "power1.inOut",
+      },
+      0.2
+    ); // Start at 0.2 seconds
+
+    canAnimations.to(
+      cansPrice.position,
+      {
+        x: originalPosition.x - 0.05,
+        y: originalPosition.y - 0.06,
+        duration: 0.1,
+        ease: "power1.inOut",
+      },
+      0.3
+    ); // Start at 0.3 seconds
+
+    canAnimations.to(
+      cansPrice.position,
+      {
+        x: originalPosition.x,
+        y: originalPosition.y,
+        duration: 0.1,
+        ease: "power1.inOut",
+      },
+      0.4
+    ); // Start at 0.4 seconds
+
+    // Add the scale/pop effect to run concurrently
+    canAnimations.to(
+      cansPrice.scale,
+      {
+        x: 4.2,
+        y: 4.2,
+        z: 4.2,
+        duration: 0.2,
+        ease: "power1.out",
+      },
+      0
+    ); // Start at position 0
+
+    canAnimations.to(
+      cansPrice.scale,
+      {
+        x: 4,
+        y: 4,
+        z: 4,
+        duration: 0.3,
+        ease: "elastic.out(1, 0.5)",
+      },
+      0.2
+    ); // Start at 0.2 seconds
+  }
   if (currentTextureIndex >= 1) {
     currentTextureIndex -= 1;
     applyTexture();
-    getcanName.textContent = cansName[currentTextureIndex];
+    gsap.to(getcanName, {
+      opacity: 0,
+      duration: 0.3,
+      onComplete: function () {
+        getcanName.textContent = cansName[currentTextureIndex];
+        gsap.to(getcanName, { opacity: 1, duration: 0.3 });
+      },
+    });
+    outerCircle.style.fill = outerCircleColor[currentTextureIndex];
+    innerCircle.style.fill = innerCircleColor[currentTextureIndex];
+    differentCanParent.style.backgroundColor =
+      backgroundColor[currentTextureIndex];
   } else {
     currentTextureIndex = 4;
     applyTexture();
     getcanName.textContent = cansName[currentTextureIndex];
   }
-  console.log(currentTextureIndex);
 };
 window.addEventListener("resize", () => {
   camera3.aspect = window.innerWidth / window.innerHeight;
@@ -935,7 +1178,6 @@ const camera4 = new THREE.PerspectiveCamera(
 camera4.position.z = 35;
 
 const parent = document.querySelector(".parent");
-console.log(parent);
 const canvas4 = document.querySelector(".canvas4");
 const renderer4 = new THREE.WebGLRenderer({
   canvas: canvas4,
@@ -1033,8 +1275,8 @@ divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
     .timeline({
       scrollTrigger: {
         trigger: ".about2",
-        start: "top 99%",
-        end: "top 20%",
+        start: "top 100%",
+        end: "top 0%",
         scrub: 5,
         // markers: true,
       },
@@ -1059,8 +1301,8 @@ divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
     .timeline({
       scrollTrigger: {
         trigger: ".about3",
-        start: "top 99%",
-        end: "top 20%",
+        start: "top 100%",
+        end: "top 0%",
         scrub: 5,
         markers: true,
       },
