@@ -40,7 +40,7 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1;
 
 // Load HDRI Environment Map
-new RGBELoader().load("../public/assets/hdrs/lobby.hdr", function (texture) {
+new RGBELoader().load("../assets/hdrs/lobby.hdr", function (texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene.environment = texture;
 });
@@ -48,13 +48,11 @@ new RGBELoader().load("../public/assets/hdrs/lobby.hdr", function (texture) {
 // Load textures
 const textureLoader = new THREE.TextureLoader();
 const flavorTextures = {
-  lemonLime: textureLoader.load("../public/assets/labels/lemon-lime.png"),
-  grape: textureLoader.load("../public/assets/labels/grape.png"),
-  blackCherry: textureLoader.load("../public/assets/labels/cherry.png"),
-  strawberryLemonade: textureLoader.load(
-    "../public/assets/labels/strawberry.png"
-  ),
-  watermelon: textureLoader.load("../public/assets/labels/watermelon.png"),
+  lemonLime: textureLoader.load("../assets/labels/lemon-lime.png"),
+  grape: textureLoader.load("../assets/labels/grape.png"),
+  blackCherry: textureLoader.load("../assets/labels/cherry.png"),
+  strawberryLemonade: textureLoader.load("../assets/labels/strawberry.png"),
+  watermelon: textureLoader.load("../assets/labels/watermelon.png"),
 };
 
 //fix color of can
@@ -77,7 +75,7 @@ const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath("https://www.gstatic.com/draco/v1/decoders/");
 loader.setDRACOLoader(dracoLoader);
 const loadCan = (positionX, positionY, rotationZ, finalTexture) => {
-  loader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
+  loader.load("../assets/models/Soda-can.gltf", (gltf) => {
     const model = gltf.scene;
     model.scale.set(4, 4, 4);
     model.rotation.y = Math.PI;
@@ -464,7 +462,7 @@ renderer2.toneMappingExposure = 1;
 // scene2.environment = scene.environment;
 
 // Load HDRI Environment Map
-new RGBELoader().load("../public/assets/hdrs/field.hdr", function (texture) {
+new RGBELoader().load("../assets/hdrs/field.hdr", function (texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene2.environment = texture;
 });
@@ -478,7 +476,7 @@ divingCanDracoLoader.setDecoderPath(
 divingCanLoader.setDRACOLoader(divingCanDracoLoader);
 
 function loadCloudModel() {
-  divingCanLoader.load("../public/assets/cloud_test/scene.gltf", (gltf) => {
+  divingCanLoader.load("../assets/cloud_test/scene.gltf", (gltf) => {
     const cloud = gltf.scene;
 
     // More random positioning across width and depth
@@ -533,7 +531,7 @@ function cloudInterval() {
 // cloudInterval();
 
 //load can on scene2
-divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
+divingCanLoader.load("../assets/models/Soda-can.gltf", (gltf) => {
   const divingCan = gltf.scene;
   divingCan.position.set(-3, 4, 1); // Start off-screen
   divingCan.scale.set(3.5, 3.5, 3.5);
@@ -774,7 +772,7 @@ renderer3.toneMapping = THREE.ACESFilmicToneMapping;
 renderer3.toneMappingExposure = 1;
 
 //load HDRI Environment Map
-new RGBELoader().load("../public/assets/hdrs/field.hdr", function (texture) {
+new RGBELoader().load("../assets/hdrs/field.hdr", function (texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene3.environment = texture;
 });
@@ -809,7 +807,7 @@ function applyTexture() {
   });
 }
 function differentCans() {
-  divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
+  divingCanLoader.load("../assets/models/Soda-can.gltf", (gltf) => {
     cansPrice = gltf.scene;
     cansPrice.position.set(0, 0, 0);
     cansPrice.scale.set(4, 4, 4);
@@ -1200,7 +1198,7 @@ renderer4.toneMapping = THREE.ACESFilmicToneMapping;
 renderer4.toneMappingExposure = 1;
 
 //load HDRI Environment Map
-new RGBELoader().load("../public/assets/hdrs/field.hdr", function (texture) {
+new RGBELoader().load("../assets/hdrs/field.hdr", function (texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene4.environment = texture;
 });
@@ -1230,7 +1228,7 @@ window.addEventListener("resize", () => {
   resizeCanvasToDisplay();
 });
 
-divingCanLoader.load("../public/assets/models/Soda-can.gltf", (gltf) => {
+divingCanLoader.load("../assets/models/Soda-can.gltf", (gltf) => {
   const aboutCan = gltf.scene;
   aboutCan.position.set(2.5, 5, 0);
   aboutCan.scale.set(4, 4, 4);
