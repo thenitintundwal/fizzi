@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fizzi</title>
   </head>
-  <body class="overflow-x-hidden">
-    <div class="mainDiv">
+  <body class="sm:overflow-x-hidden">
+    <div class="mainDiv sm:overflow-x-hidden">
       <div>
         <!-- heroSection -->
         <div
-          class="heroSeaction bg-[#FDE047] w-screen h-screen flex flex-col items-center justify-between overflow-hidden"
+          class="heroSeaction bg-[#FDE047] sm:w-screen h-screen flex flex-col items-center justify-between sm:overflow-x-hidden"
         >
-          <div class="py-2">
+          <div class="py-4 md:py-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="group z-10 h-20 cursor-pointer text-sky-800"
@@ -82,66 +82,93 @@
             </svg>
           </div>
           <div
-            class="text-[#F97316] text-[8.5rem] text-center gap-0 -mt-18 font-extrabold"
+            class="text-[#F97316] text-[5rem] md:text-[8.5rem] text-center gap-0 -mt-18 font-extrabold"
           >
-            <h1 class="heading1 font-bold scale-150 tracking-wide">LIVE</h1>
-            <h1 class="heading2 font-bold scale-150 -mt-[0.3em] tracking-wide">
+            <h1 class="heading1 font-bold md:scale-150 tracking-wide">LIVE</h1>
+            <h1
+              class="heading2 font-bold md:scale-150 -mt-[0.7em] md:-mt-[0.3em] tracking-wide"
+            >
               GUTSY
             </h1>
           </div>
-          <div class="text-center">
+          <div class="text-center mt-[-6em] md:-mt-0">
             <h2
-              class="tagline1 text-[#082F49] text-5xl tracking-wide font-bold mb-5"
+              class="tagline1 text-[#082F49] text-[2.5em] md:text-5xl tracking-wide font-bold mb-5"
             >
               Soda Perfected
             </h2>
-            <p class="tagline2 text-[#082F49] text-xl -mt-3 tracking-tighter">
+            <p
+              class="tagline2 text-[#082F49] w-[98%] text-center text-xl -mt-6 md:-mt-3 tracking-tighter"
+            >
               3-5g sugar. 9g fiber. 5 delicious flavors.
             </p>
           </div>
           <button
-            class="btn cursor-pointer border border-[#EA580C] bg-[#EA580C] text-white mb-5 px-6 py-4 text-2xl font-bold rounded-xl"
+            class="btn cursor-pointer border border-[#EA580C] bg-[#EA580C] text-white mb-20 md:mb-5 px-6 py-4 text-2xl font-bold rounded-xl"
           >
             SHOP NOW
           </button>
         </div>
         <!-- flavorSeaction -->
         <div
-          class="flavorSeaction bg-[#D9F99D] h-screen w-screen text-[#082F49] py-10 px-30 flex flex-col gap-5 justify-center"
+          class="flavorSeaction bg-[#D9F99D] md:h-screen w-screen text-[#082F49] py-10 md:px-30 flex flex-col gap-5 justify-center"
         >
-          <div class="text-8xl font-extrabold scale-100 tracking-wide">
-            <h1>TRY ALL</h1>
-            <h1>FIVE</h1>
-            <h1>FLAVORS</h1>
+          <div class="block md:hidden w-screen items-center">
+            <img
+              src="./public/assets/all-cans-bunched.png"
+              class="w-[100%] h-[100%]"
+              alt=""
+            />
           </div>
-          <p class="w-[35%] tracking-wider">
-            Our soda is made with real fruit juice and a touch of cane sugar. We
-            never use artificial sweeteners or high fructose corn syrup. Try all
-            five flavors and find your favorite!
-          </p>
+          <div class="px-3 mb-32 md:mt-0">
+            <div
+              class="text-6xl md:text-8xl font-extrabold scale-100 tracking-wide"
+            >
+              <h1>TRY ALL</h1>
+              <h1>FIVE</h1>
+              <h1>FLAVORS</h1>
+            </div>
+            <p class="md:w-[35%] tracking-wider">
+              Our soda is made with real fruit juice and a touch of cane sugar.
+              We never use artificial sweeteners or high fructose corn syrup.
+              Try all five flavors and find your favorite!
+            </p>
+          </div>
         </div>
-        <div>
+        <div class="hidden md:block">
           <canvas
             id="canvas1"
-            class="heroSeactionCanvas fixed top-0 left-0"
+            class="heroSeactionCanvas fixed top-0 left-0 hidden md:block"
           ></canvas>
         </div>
       </div>
       <!-- divingCan -->
-      <div class="relative scene2 divingCanParent w-screen">
+      <div class="relative scene2 divingCanParent w-screen overflow-x-hidden">
         <div
-          class="divingCan bg-[#C0F0F5] w-screen flex items-center flex-col justify-center py-[45em] gap-[16em] pl-[22em]"
+          class="divingCan bg-[#C0F0F5] w-screen flex items-center flex-col justify-center py-[45em] gap-[16em] md:pl-[22em]"
         >
-          <h1 id="dive" class="word dive text-[13em] font-bold text-[#F97316]">
+          <h1
+            id="dive"
+            class="word dive text-[8em] md:text-[13em] font-bold text-[#F97316]"
+          >
             DIVE
           </h1>
-          <h1 id="into" class="word text-[13em] font-bold text-[#F97316]">
+          <h1
+            id="into"
+            class="word text-[8em] md:text-[13em] font-bold text-[#F97316]"
+          >
             INTO
           </h1>
-          <h1 id="better" class="word text-[13em] font-bold text-[#F97316]">
+          <h1
+            id="better"
+            class="word text-[6em] md:text-[13em] font-bold text-[#F97316]"
+          >
             BETTER
           </h1>
-          <h1 id="health" class="word text-[13em] font-bold text-[#F97316]">
+          <h1
+            id="health"
+            class="word text-[6em] md:text-[13em] font-bold text-[#F97316]"
+          >
             HEALTH
           </h1>
         </div>
@@ -154,15 +181,15 @@
       </div>
       <!-- different can seaction -->
       <div
-        class="differentCanParent w-screen h-[100vh] bg-[#B88291] overflow-hidden"
+        class="differentCanParent w-screen h-screen bg-[#B88291] overflow-x-hidden"
       >
         <div class="flex flex-col items-center relative">
-          <div class="overflow-y-hidden z-[-5px]">
+          <div class="overflow-y-hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 1165 1166"
-              class="absolute left-1/2 -top-18 h-[120vmin] -translate-x-1/2 text-[#710523]"
+              class="absolute left-1/2 top-40 md:-top-18 h-[120vmin] -translate-x-1/2 text-[#710523]"
             >
               <path
                 class="wavy-circles-outer outerCircle"
@@ -198,12 +225,14 @@
               ></path>
             </svg>
           </div>
-          <h1 class="text-white text-5xl font-bold absolute top-[1em]">
+          <h1
+            class="text-white text-center text-5xl font-bold absolute top-[1em]"
+          >
             Choose Your Flavor
           </h1>
           <div class="">
             <button
-              class="leftButton z-10 cursor-pointer absolute top-[18em] left-[27em] rounded-[50%] border-2 border-white py-2 px-2"
+              class="leftButton z-10 cursor-pointer absolute top-[22em] md:top-[18em] left-1 md:left-[27em] rounded-[50%] border-2 border-white py-2 px-2"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -211,7 +240,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="size-12 text-white"
+                class="size-8 md:size-12 text-white"
               >
                 <path
                   stroke-linecap="round"
@@ -222,7 +251,7 @@
             </button>
             <canvas id="scene3" class="scene3 absolute left-0"></canvas>
             <button
-              class="rightButton cursor-pointer absolute top-[18em] right-[27em] rounded-[50%] border-2 border-white py-2 px-2"
+              class="rightButton cursor-pointer absolute top-[22em] md:top-[18em] right-1 md:right-[27em] rounded-[50%] border-2 border-white py-2 px-2"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -230,7 +259,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="size-12 text-white"
+                class="size-8 md:size-12 text-white"
               >
                 <path
                   stroke-linecap="round"
@@ -252,10 +281,16 @@
       </div>
       <!-- about the can seaction -->
       <div class="parent w-screen py-0 px-0 m-0 overflow-hidden relative">
-        <div class="about flex items-center bg-[#FDE047] h-screen">
-          <div class="text-[#082F49] w-[41%] mx-32">
-            <h1 class="text-[3.5rem] font-bold">Gut-Friendly Goodness</h1>
-            <p class="w-[94%] text-[1.1rem]">
+        <div
+          class="about flex items-center bg-[#FDE047] h-screen justify-center md:justify-normal"
+        >
+          <div
+            class="text-[#082F49] w-[90%] md:w-[41%] md:mx-32 bg-white/30 md:bg-[#FDE047] rounded-2xl p-3 md:px-0 backdrop-blur-8xl z-10"
+          >
+            <h1 class="text-[3.5rem] font-bold text-base/14">
+              Gut-Friendly Goodness
+            </h1>
+            <p class="md:w-[94%] text-[1.1rem] pt-5">
               Our soda is packed with prebiotics and 1 billion probiotics,
               giveing your gut the love it deserves. Say goodbye to bloating and
               hello to a happy, healty digestive system with every sip
@@ -263,23 +298,33 @@
           </div>
         </div>
 
-        <div class="about2 flex items-center bg-[#E9CFF6] h-screen justify-end">
-          <div class="text-[#082F49] w-[41%] mx-32">
-            <h1 class="text-[3.5rem] w-[60%] font-bold">
+        <div
+          class="about2 flex items-center bg-[#E9CFF6] h-screen justify-center md:justify-end"
+        >
+          <div
+            class="text-[#082F49] w-[90%] md:w-[41%] md:mx-32 bg-white/30 rounded-2xl p-3 md:p-0 backdrop-blur-8xl z-10"
+          >
+            <h1 class="text-[3.5rem] md:w-[60%] font-bold text-base/16">
               Light Calories, Big Flavor
             </h1>
-            <p class="w-[94%] text-[1.1rem]">
-              Indulge in bild, refreshing taste without the guilt, At just 20
+            <p class="md:w-[94%] text-[1.1rem] pt-5">
+              Indumde in bild, refreshing taste without the guilt, At just 20
               calories oer can, you can enjoy all the flavor you crave with none
               of the compromise.
             </p>
           </div>
         </div>
 
-        <div class="about3 flex items-center bg-[#CBEF9A] h-screen">
-          <div class="text-[#082F49] w-[41%] mx-32">
-            <h1 class="text-[3.5rem] font-bold">Naturally Refreshing</h1>
-            <p class="w-[94%] text-[1.1rem]">
+        <div
+          class="about3 flex items-center bg-[#CBEF9A] h-screen justify-center md:justify-normal"
+        >
+          <div
+            class="text-[#082F49] w-[90%] md:w-[41%] md:mx-32 bg-white/30 rounded-2xl p-3 md:p-0 backdrop-blur-8xl z-10"
+          >
+            <h1 class="text-[3.5rem] font-bold text-base/16">
+              Naturally Refreshing
+            </h1>
+            <p class="md:w-[94%] text-[1.1rem] pt-5">
               Made with only the best natural ingredients, pur soda is free from
               artificial sweeteners and flavors. it's crisp. clean taste that
               feels as good as it tastes, giving you a boost of real, natural
@@ -287,18 +332,29 @@
             </p>
           </div>
         </div>
-        <canvas class="canvas4 absolute top-0"></canvas>
+        <canvas class="canvas4 absolute top-0 z-1"></canvas>
       </div>
       <!-- above the footer seaction -->
-      <div class="bg-[#FE6334] w-screen flex flex-col items-center">
-        <h1 class="text-[#FEE832] text-[33em] font-extrabold mt-[-12rem]">
+      <div
+        class="bg-[#FE6334] w-screen h-screen md:h-auto flex flex-col items-center leading-26 md:leading-none"
+      >
+        <h1
+          class="text-[#FEE832] text-[7.8em] md:text-[33em] font-extrabold mt-5 md:mt-[-12rem]"
+        >
           SODA
         </h1>
-        <p class="text-[#FEE832] text-[11em] mt-[-13rem] font-bold">
+        <p
+          class="text-[#FEE832] hidden md:block text-center md:text-[11em] md:mt-[-13rem] font-bold w-screen md:w-auto"
+        >
           THAT MAKES YOU
         </p>
+        <div class="block md:hidden text-[#FEE832] text-center font-extrabold">
+          <p class="text-[7.5rem]">THAT</p>
+          <p class="text-[6.2rem]">MAKES</p>
+          <p class="text-[8rem]">YOU</p>
+        </div>
         <h1
-          class="text-[#FEE832] text-[32em] font-extrabold mt-[-15rem] mb-[-8rem]"
+          class="text-[#FEE832] text-[7.2em] md:text-[32em] font-extrabold md:mt-[-15rem] md:mb-[-8rem]"
         >
           SMILE
         </h1>
@@ -351,7 +407,7 @@
         </div>
         <!-- footer Circle -->
         <div
-          class="absolute bg-white rounded-[50%] w-[12rem] h-[12rem] bottom-[5rem] right-[25rem]"
+          class="absolute bg-white rounded-[50%] w-[8rem] h-[8rem] md:w-[12rem] md:h-[12rem] bottom-[7rem] md:bottom-[5rem] right-[5rem] md:right-[25rem]"
         >
           <h1></h1>
           <svg
