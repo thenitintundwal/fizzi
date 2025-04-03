@@ -610,14 +610,6 @@ divingCanLoader.load("../assets/models/Soda-can.gltf", (gltf) => {
     },
   });
 
-  // Animation that keeps the can within the divingCan div
-  // tl.from(divingCan.position, {
-  //   y: 4, // Start from below
-  //   x: -3,
-  //   duration: 0.1,
-  //   ease: "power2.inOut",
-  // });
-
   scene2.add(divingCan);
 });
 
@@ -1190,6 +1182,12 @@ divingCanLoader.load("../assets/models/Soda-can.gltf", (gltf) => {
   aboutCan.scale.set(4, 4, 4);
   aboutCan.rotation.y = Math.PI;
 
+  if (window.innerWidth <= 640) {
+    aboutCan.position.set(0, 5.2, 0);
+  } else {
+    aboutCan.position.set(2.5, 5, 0);
+  }
+
   //appling material to can
   aboutCan.traverse((child) => {
     if (child.isMesh) {
@@ -1227,93 +1225,52 @@ divingCanLoader.load("../assets/models/Soda-can.gltf", (gltf) => {
     yoyo: true,
   });
 
-  if (window.innerWidth <= 640) {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ".about2",
-          start: "top 80%",
-          end: "top 50%",
-          scrub: 5,
-          // markers: true,
-        },
-      })
-      .to(".about", {
-        backgroundColor: "#E9CFF6",
-        duration: 3,
-        ease: "none",
-      })
-      .to(aboutCan.position, {
-        x: 0,
-        y: 0,
-      });
-  } else {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ".about2",
-          start: "top 80%",
-          end: "top 50%",
-          scrub: 5,
-          // markers: true,
-        },
-      })
-      .to(".about", {
-        backgroundColor: "#E9CFF6",
-        duration: 3,
-        ease: "none",
-      })
-      .to(aboutCan.position, {
-        x: -3,
-        y: -0.3,
-        duration: 5,
-        ease: "power2.inOut",
-      });
-  }
+  const windowWidth = window.innerWidth;
+  const isWindowSmall = windowWidth <= 640;
 
-  if (window.innerWidth <= 640) {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ".about3",
-          start: "top 80%",
-          end: "top 40%",
-          scrub: 5,
-          // markers: true,
-        },
-      })
-      .to(".about2", {
-        backgroundColor: "#CBEF9A",
-        ease: "none",
-        duration: 2,
-      })
-      .to(aboutCan.position, {
-        x: 0,
-        y: 0,
-      });
-  } else {
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ".about3",
-          start: "top 80%",
-          end: "top 40%",
-          scrub: 5,
-          // markers: true,
-        },
-      })
-      .to(".about2", {
-        backgroundColor: "#CBEF9A",
-        ease: "none",
-        duration: 2,
-      })
-      .to(aboutCan.position, {
-        x: 3,
-        y: -5,
-        duration: 5,
-        ease: "power2.inOut",
-      });
-  }
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".about2",
+        start: "top 80%",
+        end: "top 50%",
+        scrub: 5,
+        // markers: true,
+      },
+    })
+    .to(".about", {
+      backgroundColor: "#E9CFF6",
+      duration: 3,
+      ease: "none",
+    })
+    .to(aboutCan.position, {
+      x: isWindowSmall ? -0 : -3,
+      y: isWindowSmall ? 0 : -0.3,
+      duration: 5,
+      ease: "power2.inOut",
+    });
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".about3",
+        start: "top 80%",
+        end: "top 40%",
+        scrub: 5,
+        // markers: true,
+      },
+    })
+    .to(".about2", {
+      backgroundColor: "#CBEF9A",
+      ease: "none",
+      duration: 2,
+    })
+    .to(aboutCan.position, {
+      x: isWindowSmall ? 0 : 3,
+      y: isWindowSmall ? -5 : -5,
+      duration: 5,
+      ease: "power2.inOut",
+    });
 });
 
 //animation loop
