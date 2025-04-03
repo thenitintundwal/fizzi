@@ -1,15 +1,14 @@
 import * as THREE from "three";
-import fragment from "../shaders/fregment.glsl";
-import vertex from "../shaders/vertices.glsl";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
-import CustomShaderMaterial from "three-custom-shader-material/vanilla";
+
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import { SplitText } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(SplitText);
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -533,10 +532,9 @@ function cloudInterval() {
 //load can on scene2
 divingCanLoader.load("../assets/models/Soda-can.gltf", (gltf) => {
   const divingCan = gltf.scene;
-  divingCan.position.set(-3, 4, 1); // Start off-screen
+  divingCan.position.set(-3, 4, 1);
   divingCan.scale.set(3.5, 3.5, 3.5);
   divingCan.rotation.y = Math.PI;
-  // divingCan.rotation.z = -0.5;
 
   // Apply materials to the can
   divingCan.traverse((child) => {
@@ -642,6 +640,45 @@ tl.from(".tagline1, .tagline2, .btn", {
   opacity: 0,
   stagger: 1,
   ease: "power2.inOut",
+});
+
+const textElement = document.querySelector(".flavorText");
+const word = textElement.innerHTML;
+const chars = word
+  .split("")
+  .map((chars) => `<span> ${chars}</span>`)
+  .join("");
+console.log(chars);
+
+const text = textElement.innerText;
+textElement.innerHTML = text
+  .split("")
+  .map((char) => `<span>${char}</span>`)
+  .join("");
+
+const tl8 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".flavorText",
+    start: "center 80%",
+    end: "center 20%",
+    scrub: 2,
+    // markers: true,
+  },
+});
+
+tl8.from(".flavorText span", {
+  opacity: 0,
+  y: -20,
+  stagger: 0.3,
+  duration: 3,
+  ease: "power2.out",
+});
+
+tl8.from(".flavorPara", {
+  opacity: 0,
+  y: 20,
+  duration: 5,
+  ease: "power2.out",
 });
 
 const tl2 = gsap.timeline({
