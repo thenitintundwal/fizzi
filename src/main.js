@@ -648,7 +648,6 @@ const chars = word
   .split("")
   .map((chars) => `<span> ${chars}</span>`)
   .join("");
-console.log(chars);
 
 const text = textElement.innerText;
 textElement.innerHTML = text
