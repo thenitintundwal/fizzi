@@ -1184,6 +1184,7 @@ divingCanLoader.load("../assets/models/Soda-can.gltf", (gltf) => {
 
   if (window.innerWidth <= 640) {
     aboutCan.position.set(0, 5.2, 0);
+    aboutCan.scale.set(2, 2, 2);
   } else {
     aboutCan.position.set(2.5, 5, 0);
   }
